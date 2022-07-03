@@ -7,6 +7,18 @@ document
 const button = document.querySelector("#submit");
 const input = document.querySelector("#input-url");
 const baseURL = "https://api.shrtco.de/v2/shorten?url=";
+let links;
+try {
+	links = JSON.parse(localStorage.getItem("links"));
+} catch {
+	links = [];
+}
+
+document.addEventListener("DOMContentLoaded", (e) => {
+	links.forEach((link) => {
+		createNewLinkElement(link[0], link[1]);
+	});
+});
 
 input.addEventListener("keyup", (e) => {
 	if (form.classList.contains("error") && input.value)
@@ -39,8 +51,11 @@ async function showNewURL() {
 	let res = await getNewURL(input.value);
 	let originalLink = res.original_link;
 	let shortLink = res.full_short_link;
-	console.log(originalLink, "\n" + shortLink);
 	input.value = "";
+
+	// store in makeshift database (localstorage)
+	links.push([originalLink, shortLink]);
+	localStorage.setItem("links", JSON.stringify(links));
 
 	createNewLinkElement(originalLink, shortLink);
 }
