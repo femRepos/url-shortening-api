@@ -51,7 +51,8 @@ async function showNewURL() {
 	// store in makeshift database (localstorage)
 	links.push([originalLink, shortLink]);
 	// tidy up the webpage
-	if (links.length > 5) links.splice(0, links.length - 10);
+	let limit = 5;
+	if (links.length > limit) links.splice(0, links.length - limit);
 
 	localStorage.setItem("links", JSON.stringify(links));
 
