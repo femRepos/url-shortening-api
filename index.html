@@ -73,14 +73,19 @@
 						type="text"
 						placeholder="Shorten a link here... "
 						name=""
-						id=""
+						id="input-url"
+						class="error"
 					/>
-					<button class="btn btn--square">Shorten It!</button>
+					<button class="btn btn--square" id="submit">
+						Shorten It!
+					</button>
 				</form>
+				<small>Please add a link</small>
 			</div>
 
 			<section class="features">
 				<div class="container">
+					<div class="results"></div>
 					<div class="features__description">
 						<h2>Advanced Statistics</h2>
 						<p>
