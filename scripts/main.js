@@ -7,12 +7,7 @@ document
 const button = document.querySelector("#submit");
 const input = document.querySelector("#input-url");
 const baseURL = "https://api.shrtco.de/v2/shorten?url=";
-let links;
-try {
-	links = JSON.parse(localStorage.getItem("links"));
-} catch {
-	links = [];
-}
+let links = JSON.parse(localStorage.getItem("links")) || [];
 
 document.addEventListener("DOMContentLoaded", (e) => {
 	links.forEach((link) => {
@@ -55,6 +50,9 @@ async function showNewURL() {
 
 	// store in makeshift database (localstorage)
 	links.push([originalLink, shortLink]);
+	// tidy up the webpage
+	if (links.length > 10) links.splice(0, links.length - 10);
+
 	localStorage.setItem("links", JSON.stringify(links));
 
 	createNewLinkElement(originalLink, shortLink);
