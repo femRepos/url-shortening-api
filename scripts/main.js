@@ -1,17 +1,21 @@
-document.querySelector(".burger").addEventListener("click", toggleNav);
-const copyButtons = document.querySelectorAll("result .btn");
-const form = document.querySelector("form");
-document
-	.querySelector("form")
-	.addEventListener("submit", (e) => e.preventDefault());
 const button = document.querySelector("#submit");
 const input = document.querySelector("#input-url");
+const copyButtons = document.querySelectorAll("result .btn");
+const form = document.querySelector("form");
+
 const baseURL = "https://api.shrtco.de/v2/shorten?url=";
 let links = JSON.parse(localStorage.getItem("links")) || [];
 
+document.querySelector(".burger").addEventListener("click", toggleNav);
+form.addEventListener("submit", (e) => e.preventDefault());
+
 document.addEventListener("DOMContentLoaded", (e) => {
-	links.forEach((link) => {
-		createNewLinkElement(link[0], link[1]);
+	// make sure there are no more than 3 links
+	tidyLinks();
+
+	// update webpage to match database (local storage on reloads)
+	links.forEach(([original, short]) => {
+		createNewLinkElement(original, short);
 	});
 });
 
@@ -50,9 +54,6 @@ async function showNewURL() {
 
 	// store in makeshift database (localstorage)
 	links.push([originalLink, shortLink]);
-	// tidy up the webpage
-	let limit = 5;
-	if (links.length > limit) links.splice(0, links.length - limit);
 
 	localStorage.setItem("links", JSON.stringify(links));
 
@@ -112,4 +113,10 @@ function toggleNav() {
 
 function showFormError() {
 	if (!form.classList.contains("error")) form.classList.add("error");
+}
+
+function tidyLinks() {
+	// tidy up the webpage
+	let limit = 3;
+	if (links.length > limit) links.splice(0, links.length - limit);
 }

@@ -80,6 +80,10 @@ button {
 }
 
 /* header */
+header {
+	overflow: hidden;
+}
+
 .navigation {
 	display: flex;
 	padding-block: 50px;
@@ -211,10 +215,6 @@ nav ul li:last-child {
 }
 
 @media screen and (max-width: 950px) {
-	header {
-		overflow: hidden;
-	}
-
 	.navigation,
 	nav,
 	nav ul {
@@ -436,6 +436,11 @@ form .btn {
 
 /* features */
 
+.results {
+	display: flex;
+	flex-direction: column-reverse;
+}
+
 .result {
 	background-color: hsl(0, 100%, 100%);
 	padding: 15px 20px;
@@ -449,7 +454,8 @@ form .btn {
 	cursor: default;
 }
 
-.result:not(.result:last-child) {
+/* the column is reversed so you'll have to target the first child to target the bottom */
+.result:not(.result:first-child) {
 	margin-bottom: 15px;
 }
 
